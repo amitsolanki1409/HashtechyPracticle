@@ -32,29 +32,34 @@ Before you begin, ensure you have the following installed:
 ### Setup Instructions
 
 1. **Clone the repository**:
-
+   \`\`\`bash
    git clone https://github.com/amitsolanki1409/HashtechyPracticle.git
    cd HashtechyPracticle
+   \`\`\`
 
 2. **Install dependencies**:
-
+   \`\`\`bash
    npm install
+   \`\`\`
 
 3. **Start the Metro bundler**:
-
+   \`\`\`bash
    npx react-native start
+   \`\`\`
 
 4. **Run the app on an Android/iOS emulator or connected device**:
-
+   \`\`\`bash
    npm run android # for Android
    #for ios first install Pod using below command
    npx pod-install
    npx run ios # for iOS
+   \`\`\`
 
 ## Project Structure
 
 Here's a high-level overview of the project structure:
 
+\`\`\`
 .
 ├── /android # Android native project files
 ├── /ios # iOS native project files
@@ -68,6 +73,7 @@ Here's a high-level overview of the project structure:
 │ └── App.js # Entry point for the app
 ├── package.json # Project dependencies and scripts
 ├── README.md # Project documentation
+\`\`\`
 
 ### **Key Components**:
 
