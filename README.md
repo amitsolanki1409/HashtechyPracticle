@@ -1,79 +1,127 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+## Table of Contents
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Key Decisions](#key-decisions)
+- [Additional Notes](#additional-notes)
 
-## Step 1: Start the Metro Server
+---
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+The Version of React Native in this project is 0.75.3
 
-To start Metro, run the following command from the _root_ of your React Native project:
+# User Management App
 
-```bash
-# using npm
-npm start
+A mobile application built with React Native that allows users to be fetched from an API, displayed in a list with infinite scrolling, and refreshed via pull-to-refresh. Users can be viewed in detail on a separate screen.
 
-# OR using Yarn
-yarn start
-```
+## Getting Started
 
-## Step 2: Start your Application
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+### Prerequisites
 
-### For Android
+Before you begin, ensure you have the following installed:
 
-```bash
-# using npm
-npm run android
+- **Node.js** (LTS version recommended)
+- **React Native CLI** (Not Expo)
+- **Android Studio** or **Xcode** (for Android/iOS development)
+- **Redux DevTools** (for debugging state)
 
-# OR using Yarn
-yarn android
-```
+### Setup Instructions
 
-### For iOS
+1. **Clone the repository**:
+   \`\`\`bash
+   git clone https://github.com/amitsolanki1409/HashtechyPracticle.git
+   cd HashtechyPracticle
+   \`\`\`
 
-```bash
-# using npm
-npm run ios
+2. **Install dependencies**:
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-# OR using Yarn
-yarn ios
-```
+3. **Start the Metro bundler**:
+   \`\`\`bash
+   npx react-native start
+   \`\`\`
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+4. **Run the app on an Android/iOS emulator or connected device**:
+   \`\`\`bash
+   npm run android # for Android
+   #for ios first install Pod using below command
+   npx pod-install
+   npx run ios # for iOS
+   \`\`\`
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Project Structure
 
-## Step 3: Modifying your App
+Here's a high-level overview of the project structure:
 
-Now that you have successfully run the app, let's modify it.
+\`\`\`
+.
+├── /android # Android native project files
+├── /ios # iOS native project files
+├── /src
+│ ├── /components # UI components like UserListItem
+│ ├── /screens # React Native Screens (UserListScreen, UserDetailScreen)
+│ ├── /redux # Redux-related code (store, slices)
+│ │ ├── /slices # Redux slices (userSlice)
+│ │ ├── /store.js # Redux store (globle state)
+│ ├── /navigation # Navigation setup (React Navigation)
+│ └── App.js # Entry point for the app
+├── package.json # Project dependencies and scripts
+├── README.md # Project documentation
+\`\`\`
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+### **Key Components**:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+1. **UserListScreen**: Displays the list of users with infinite scrolling and pull-to-refresh functionality.
+2. **UserDetailScreen**: Displays detailed information about a selected user.
+3. **UserListItem**: A reusable component for rendering each user in the list.
+4. **Redux (userSlice.js)**: Handles state management for fetching users asynchronously, including error handling and pagination.
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
+## Features
 
-### Now what?
+- **Infinite Scrolling**: Automatically loads more users when scrolling down.
+- **Pull-to-Refresh**: Allows refreshing the user list by pulling down on the screen.
+- **Navigation**: Uses React Navigation to navigate between the user list and user detail screens.
+- **API Integration**: Fetches users from the [Random User API](https://randomuser.me/).
+- **Redux State Management**: Uses Redux Toolkit with `createAsyncThunk` and `redux-thunk` for managing API calls and global state.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+---
 
-# Troubleshooting
+## Key Decisions
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+### **1. Bare React Native CLI**:
 
-# Learn More
+We opted for a bare React Native CLI setup instead of Expo to give more control over the project and allow the app to include native code when needed (e.g., third-party libraries that require native linking).
 
-To learn more about React Native, take a look at the following resources:
+### **2. Redux Toolkit**:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Redux Toolkit was chosen for state management because it simplifies the process of setting up a Redux store and reduces boilerplate, especially with features like `createAsyncThunk` for handling async operations.
+
+### **3. Component-Based Design**:
+
+The app separates UI concerns by breaking down the list item component (`UserListItem`) into its own file. This makes the code more modular and easier to maintain or extend.
+
+### **4. Error Handling**:
+
+API error handling is implemented using the `.rejected` state of the async thunk. In case of an error during the API call, a message is shown using React Native's `Alert` component.
+
+---
+
+## Additional Notes
+
+- **Pagination Logic**: The app uses the `page` query parameter in the API call for pagination. The `fetchUsers` action increments the page number whenever the user scrolls to the bottom of the list.
+- **Performance Considerations**: A `FlatList` was used for rendering the user list to optimize performance for large data sets. Infinite scroll loads more data when the user is 50% away from the bottom.
+
+- **Platform Support**: This app should work on both Android and iOS platforms. Ensure the necessary setup for Android (Android Studio) and iOS (Xcode) is complete before running the app on emulators or physical devices.
+
+---
+
+Thank you from,
+Amitkumar Solanki.
